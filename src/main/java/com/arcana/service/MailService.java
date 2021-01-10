@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import com.arcana.model.*;
 
 import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 @Slf4j
-class MailService {
+public class MailService {
 
     private final JavaMailSender mailSender;
    
@@ -39,5 +40,7 @@ class MailService {
             throw new SpringException("Exception occurred when sending mail to " + notificationEmail.getRecipient(), e);
         }
     }
+    
+ 
 
 }
