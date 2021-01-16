@@ -60,7 +60,7 @@ public class ReadingService {
     
 
     @Transactional(readOnly = true)
-    public List<ReadingResponse> getAllPosts() {
+    public List<ReadingResponse> getAllReadings() {
         return readingRepository.findAll()
                 .stream()
                 .map(readingMapper::mapToDto)
@@ -68,7 +68,7 @@ public class ReadingService {
     }
     
     @Transactional(readOnly = true)
-    public List<ReadingResponse> getPostsByEmail(String email) {
+    public List<ReadingResponse> getReadingsByEmail(String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(email));
         return readingRepository.findByUser(user)

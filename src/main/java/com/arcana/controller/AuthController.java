@@ -38,14 +38,14 @@ public class AuthController {
     public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest) throws MalformedURLException {
         authService.signup(registerRequest);
 
-        return new ResponseEntity<>("User Registration Successful",
+        return new ResponseEntity<>("La registrazione è avvenuta con successo",
                 OK);
     }
 
     @GetMapping("accountVerification/{token}")
     public ResponseEntity<String> verifyAccount(@PathVariable String token) {
         authService.verifyAccount(token);
-        return new ResponseEntity<>("Account Activated Successfully", OK);
+        return new ResponseEntity<>("Account Attivato con Successo", OK);
     }
 
     @PostMapping("/login")
@@ -61,18 +61,18 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<String> logout(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
         refreshTokenService.deleteRefreshToken(refreshTokenRequest.getRefreshToken());
-        return ResponseEntity.status(OK).body("Refresh Token Deleted Successfully!!");
+        return ResponseEntity.status(OK).body("Refresh Token Cancellate con Successo!!");
     }
     
     @GetMapping(path="/all")
 	public @ResponseBody Iterable<User> getAllUsers() {
-		// This returns a JSON or XML with the users
+		// Ritorna un JSON con tutti gli utenti
 		return userRepository.findAll();
 	}
     
     @GetMapping(path="/{email}")
    	public @ResponseBody Optional<User> getAllUsersByEmail(@PathVariable("email") String email) {
-   		// This returns a JSON or XML with the users
+   		
    		return userRepository.findByEmail(email);
    	}
 }

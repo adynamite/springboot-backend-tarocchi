@@ -22,20 +22,21 @@ public class ReadingController {
 
     private final ReadingService readingService;
 
-    
+    //Lettura salvata nel DB
     @PostMapping("/create")
-    public ResponseEntity<Void> createPost(@RequestBody ReadingRequest postRequest) {
-       readingService.saveReading(postRequest);
+    public ResponseEntity<Void> createReading(@RequestBody ReadingRequest readingRequest) {
+       readingService.saveReading(readingRequest);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     
+    //Trova tutte le letture dal DB
     @GetMapping
-    public ResponseEntity<List<ReadingResponse>> getAllPosts() {
-        return status(HttpStatus.OK).body(readingService.getAllPosts());
+    public ResponseEntity<List<ReadingResponse>> getAllReadings() {
+        return status(HttpStatus.OK).body(readingService.getAllReadings());
     }
     
     @GetMapping("/{email}")
-    public ResponseEntity<List<ReadingResponse>> getPostsByUsername(@PathVariable("email") String email) {
-        return status(HttpStatus.OK).body(readingService.getPostsByEmail(email));
+    public ResponseEntity<List<ReadingResponse>> getReadingsByEmail(@PathVariable("email") String email) {
+        return status(HttpStatus.OK).body(readingService.getReadingsByEmail(email));
     }
 }

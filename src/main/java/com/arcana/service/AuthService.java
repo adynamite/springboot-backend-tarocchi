@@ -53,9 +53,9 @@ public class AuthService {
 
         String token = generateVerificationToken(user);
         URL activate = new URL("http://localhost:8080/api/auth/accountVerification/" + token);
-        mailService.sendMail(new NotificationEmail("Please Activate your Account",
-                user.getEmail(), "Hello "+user.getUsername()+ " and thank you for signing up to Arcana! \r\n"  +
-                "Please click on the below url to activate your account : \r\n" +
+        mailService.sendMail(new NotificationEmail("Ti prego di attivare il tuo account",
+                user.getEmail(), "Salve "+user.getUsername()+ " e grazie per averti registrato ad Arcana! \r\n"  +
+                "Ti prego di clickare sul link sottostante per attivare il tuo account : \r\n" +
                 activate ));
    
     }
@@ -65,12 +65,12 @@ public class AuthService {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.
                 getContext().getAuthentication().getPrincipal();
         return userRepository.findByEmail(principal.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException("User email not found - " + principal.getUsername()));
+                .orElseThrow(() -> new UsernameNotFoundException("Email non trovata - " + principal.getUsername()));
     }
 
     private void fetchUserAndEnable(VerificationToken verificationToken) {
         String email = verificationToken.getUser().getEmail();
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new SpringException("User not found with email - " + email));
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new SpringException("Utente non trovato con l'email - " + email));
         user.setEnabled(true);
         userRepository.save(user);
     }
@@ -87,7 +87,7 @@ public class AuthService {
 
     public void verifyAccount(String token) {
         Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
-        fetchUserAndEnable(verificationToken.orElseThrow(() -> new SpringException("Invalid Token")));
+        fetchUserAndEnable(verificationToken.orElseThrow(() -> new SpringException("Token Sbagliato")));
     }
 
     public AuthenticationResponse login(LoginRequest loginRequest) {
